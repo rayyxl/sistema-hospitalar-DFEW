@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Rai Soares">
+    <meta name="description" content="Formulário para adicionar ou editar um exame no prontuário do paciente.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de exame | Sistema Hospitalar</title>
+</head>
+<body>
+    <header>
+        <h1>Sistema Hospitalar</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a> |
+            <a href="pacientes.html">Pacientes</a> |
+            <a href="../index.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Adicionar / editar exame</h2>
+        <p><a href="exames.html">&larr; Voltar aos exames</a></p>
+
+        <form>
+            <fieldset>
+                <legend>Dados do exame</legend>
+
+                <label for="paciente">Paciente:</label><br>
+                <select id="paciente" name="paciente" required>
+                    <option value="maria" selected>Maria Souza</option>
+                    <option value="joao">João Pereira</option>
+                    <option value="ana">Ana Lima</option>
+                </select><br><br>
+
+                <label for="tipo">Tipo de exame:</label><br>
+                <input list="tipos-exame" id="tipo" name="tipo" placeholder="Digite ou escolha um exame" required>
+                <datalist id="tipos-exame">
+                    <option value="Hemograma completo">
+                    <option value="Eletrocardiograma">
+                    <option value="Glicemia em jejum">
+                    <option value="Raio-X">
+                    <option value="Ressonância magnética">
+                    <option value="Ultrassonografia">
+                </datalist><br><br>
+
+                <label for="data">Data de realização:</label><br>
+                <input type="date" id="data" name="data" required><br><br>
+
+                <label for="resultado">Resultado:</label><br>
+                <textarea id="resultado" name="resultado" rows="4" cols="40" placeholder="Descreva o resultado do exame" required></textarea><br><br>
+
+                <label for="arquivo">Arquivo do laudo:</label><br>
+                <input type="file" id="arquivo" name="arquivo"><br><br>
+
+                <label for="observacoes">Observações:</label><br>
+                <textarea id="observacoes" name="observacoes" rows="4" cols="40" placeholder="Informações adicionais"></textarea>
+            </fieldset>
+
+            <br>
+            <input type="submit" value="Salvar exame">
+            <input type="reset" value="Limpar">
+            <a href="exames.html">Cancelar</a>
+        </form>
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
+    </footer>
+</body>
+</html>
