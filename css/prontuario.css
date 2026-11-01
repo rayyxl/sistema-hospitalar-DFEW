@@ -1,0 +1,47 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+main > h2 {
+    flex: 0 0 100%;
+    margin-bottom: 0;
+}
+
+main > section {
+    flex: 1 1 440px;
+    margin-bottom: 0;
+}
+
+main > aside {
+    flex: 1 1 100%;
+}
+
+tbody th {
+    width: 35%;
+    background-color: var(--cor-destaque);
+    color: var(--cor-primaria-texto);
+    letter-spacing: 0;
+    text-transform: none;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+main > section > p {
+    margin-top: 12px;
+}
+
+ol {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+ol li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+ol li:last-child {
+    border-bottom: none;
+}

@@ -1,0 +1,21 @@
+form {
+    max-width: 720px;
+}
+
+fieldset {
+    padding-top: 20px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+input[type="file"] {
+    background-color: var(--cor-destaque);
+    border: 2px dashed var(--cor-secundaria);
+    cursor: pointer;
+}
+
+.botoes {
+    justify-content: flex-start;
+}

@@ -1,0 +1,80 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+main > h2,
+main > p {
+    flex: 0 0 100%;
+    margin-bottom: 0;
+}
+
+main > section {
+    flex: 1 1 320px;
+    margin-bottom: 0;
+}
+
+main > section:first-of-type {
+    flex-basis: 100%;
+}
+
+main > aside {
+    flex: 1 1 100%;
+}
+
+.resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.resumo li {
+    flex: 1 1 160px;
+    margin-bottom: 0;
+    padding: 16px;
+    background-color: var(--cor-destaque);
+    border-bottom: 4px solid var(--cor-secundaria);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.resumo strong {
+    display: block;
+    font-family: var(--fonte-titulo);
+    font-size: 2.2rem;
+    line-height: 1.2;
+    color: var(--cor-primaria-texto);
+}
+
+.atalhos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.atalhos li {
+    margin-bottom: 0;
+}
+
+.atalhos a {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--cor-primaria);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.atalhos a:hover {
+    background-color: var(--cor-primaria-escura);
+    color: #ffffff;
+    text-decoration: none;
+}

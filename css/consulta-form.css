@@ -1,0 +1,15 @@
+form {
+    max-width: 720px;
+}
+
+fieldset {
+    padding-top: 20px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.botoes {
+    justify-content: flex-start;
+}
