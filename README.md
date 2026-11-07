@@ -43,26 +43,26 @@ O projeto é totalmente front-end e utiliza armazenamento local no navegador, o 
 
 ### Online
 
+A forma mais simples de usar o sistema é diretamente pelo link abaixo:
+
 - URL: https://sistema-hospitalar-dfew.vercel.app/
 
-### Localmente
+### Localmente no VS Code
 
-1. Abra o terminal na raiz do projeto.
-2. Execute:
+Se preferir rodar localmente, siga estes passos:
 
-```bash
-python3 -m http.server 8000
-```
-
-3. Acesse no navegador:
+1. Abra a pasta do projeto no VS Code.
+2. Instale a extensão Live Server, se ainda não tiver.
+3. Clique com o botão direito em `index.html` e selecione "Open with Live Server".
+4. O navegador abrirá a aplicação em um endereço local, normalmente semelhante a:
 
 ```text
-http://localhost:8000
+http://localhost:5500
 ```
 
-4. Na tela de login, use o cadastro de médico para criar o primeiro usuário.
+5. Na tela de login, use o cadastro de médico para criar o primeiro usuário.
 
-> O sistema foi pensado para funcionar em ambiente local e em HTTPS/localhost, especialmente por usar a API Web Crypto para geração e verificação de hashes de senha.
+> O sistema foi pensado para funcionar em ambiente local ou em HTTPS/localhost, especialmente por usar a API Web Crypto para geração e verificação de hashes de senha.
 
 ## Estrutura do projeto
 
@@ -132,7 +132,3 @@ http://localhost:8000
 ## Contribuição
 
 Este projeto pode ser utilizado como base para estudos, prototipos e melhorias em sistemas de gestão hospitalar, sendo livre para adaptação conforme a necessidade do desenvolvimento.
-
-## Licença
-
-Este projeto foi desenvolvido para fins acadêmicos e demonstrativos. Consulte a organização ou os responsáveis do repositório antes de utilizar em produção ou em ambientes reais de atendimento clínico.
