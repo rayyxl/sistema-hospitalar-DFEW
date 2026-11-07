@@ -1,78 +1,138 @@
 # Sistema Hospitalar
 
-Aplicação web demonstrativa para médicos organizarem pacientes e acompanharem informações clínicas. O projeto usa HTML, CSS e JavaScript puro, sem servidor de aplicação ou dependências externas.
+<img src="images/icone-180.png" alt="Logo do Sistema Hospitalar" width="120" />
+
+Sistema web para gestão clínica e administrativa de um consultório ou hospital pequeno, com foco em médicos, pacientes, consultas e exames.
+
+Acesse o sistema online: https://sistema-hospitalar-dfew.vercel.app/
+
+## Visão geral
+
+O Sistema Hospitalar foi desenvolvido para centralizar o acompanhamento de pacientes em um ambiente simples e funcional, permitindo que o profissional de saúde cadastre informações, organize atendimentos e acompanhe histórico clínico em uma única interface.
+
+O projeto é totalmente front-end e utiliza armazenamento local no navegador, o que facilita a execução e demonstração sem a necessidade de backend ou banco de dados.
 
 ## Funcionalidades
 
-- Cadastro de médicos com nome, CRM, especialidade, e-mail e senha; login e encerramento de sessão.
-- Painel com totais de pacientes, consultas e exames, além dos cinco registros mais recentes.
-- Cadastro, edição, busca por nome ou CPF e remoção de pacientes.
-- Prontuário com dados cadastrais, idade calculada, histórico clínico, consultas e exames.
-- Registro, edição e remoção de consultas, com data, horário, motivo, diagnóstico e observações.
-- Registro, edição e remoção de exames, com tipo, data, resultado e observações.
-- Máscaras para CPF e telefone, mensagens de sucesso e erro e confirmação antes de remover registros.
+- Cadastro e login de médicos
+- Dashboard com indicadores gerais
+- Cadastro, edição e remoção de pacientes
+- Busca por nome ou CPF
+- Prontuário do paciente com dados clínicos e históricos
+- Registro de consultas com diagnóstico e observações
+- Registro de exames com tipo, data e resultado
+- Validações e máscaras de campos como CPF e telefone
+- Confirmação antes de exclusões
+- Sessão do usuário salva no navegador
 
-## Como executar
+## Interface do projeto
 
-É necessário um navegador moderno e um servidor local. A página de login usa a API Web Crypto para gerar e conferir hashes de senha, recurso que requer `localhost` ou HTTPS.
+<p align="center">
+  <img src="images/icone.svg" alt="Ícone do Sistema Hospitalar" width="180" />
+</p>
 
-1. Abra um terminal na pasta raiz do projeto.
-2. Inicie um servidor HTTP local:
+## Tecnologias utilizadas
 
-   ```bash
-   python3 -m http.server 8000
-   ```
+- HTML5
+- CSS3
+- JavaScript puro
+- Web Storage (`localStorage`)
+- Web Crypto API para hash de senha
 
-3. Acesse [http://localhost:8000](http://localhost:8000) no navegador.
-4. Na tela de login, use o link de cadastro para criar o primeiro médico.
+## Como acessar
 
-Também é possível usar a extensão Live Server do VS Code. Não é necessário instalar pacotes ou executar uma etapa de build.
+### Online
 
-## Armazenamento e limitações
+- URL: https://sistema-hospitalar-dfew.vercel.app/
 
-Os dados são salvos no `localStorage` do navegador, separados por médico. Eles não são enviados a um servidor nem sincronizados entre navegadores ou dispositivos. Limpar os dados do navegador pode apagá-los.
+### Localmente
 
-O arquivo selecionado como laudo de exame não é armazenado: o sistema registra somente o nome do arquivo. O CPF recebe formatação pela máscara, mas não passa por validação de existência ou de dígitos verificadores.
+1. Abra o terminal na raiz do projeto.
+2. Execute:
 
-Este projeto é demonstrativo e não deve ser usado para armazenar dados reais de pacientes. O armazenamento e a verificação de sessão acontecem no lado do cliente; não há backend nem controles de segurança apropriados para produção.
+```bash
+python3 -m http.server 8000
+```
 
-## Tecnologias
+3. Acesse no navegador:
 
-- HTML5 para as páginas e formulários.
-- CSS3 para os estilos compartilhados e específicos de cada tela.
-- JavaScript nativo para navegação, validação, máscaras, interface e persistência.
-- `localStorage` para dados e sessão; Web Crypto API para hash de senhas com sal.
+```text
+http://localhost:8000
+```
+
+4. Na tela de login, use o cadastro de médico para criar o primeiro usuário.
+
+> O sistema foi pensado para funcionar em ambiente local e em HTTPS/localhost, especialmente por usar a API Web Crypto para geração e verificação de hashes de senha.
 
 ## Estrutura do projeto
 
 ```text
 .
-├── index.html                 # Login
-├── html/                      # Cadastro, painel, pacientes e registros clínicos
-├── css/                       # Estilos globais e estilos por página
-├── js/                        # Lógica das páginas, utilitários e armazenamento
-└── README.md
+├── index.html
+├── html/
+│   ├── cadastro-medico.html
+│   ├── dashboard.html
+│   ├── pacientes.html
+│   ├── paciente-novo.html
+│   ├── paciente-editar.html
+│   ├── prontuario.html
+│   ├── consulta-form.html
+│   ├── consultas.html
+│   ├── exame-form.html
+│   └── exames.html
+├── css/
+│   ├── cadastro-medico.css
+│   ├── consulta-form.css
+│   ├── consultas.css
+│   ├── dashboard.css
+│   ├── exame-form.css
+│   ├── exames.css
+│   ├── global.css
+│   ├── login.css
+│   ├── paciente-editar.css
+│   ├── paciente-novo.css
+│   ├── pacientes.css
+│   └── prontuario.css
+├── js/
+│   ├── cadastro-medico.js
+│   ├── consulta-form.js
+│   ├── consultas.js
+│   ├── dashboard.js
+│   ├── exame-form.js
+│   ├── exames.js
+│   ├── global.js
+│   ├── login.js
+│   ├── paciente-form.js
+│   ├── pacientes.js
+│   ├── prontuario.js
+│   ├── storage.js
+│   └── global.js
+├── images/
+│   ├── icone.svg
+│   └── icone-180.png
+├── README.md
+└── index.html
 ```
 
-### Páginas
+## Fluxo principal do sistema
 
-- `index.html`: login do médico.
-- `html/cadastro-medico.html`: cadastro de acesso do médico.
-- `html/dashboard.html`: resumo do sistema e atalhos.
-- `html/pacientes.html`: busca e lista de pacientes.
-- `html/paciente-novo.html` e `html/paciente-editar.html`: cadastro e edição de pacientes.
-- `html/prontuario.html`: dados cadastrais e histórico clínico do paciente.
-- `html/consulta-form.html` e `html/consultas.html`: formulário e lista de consultas.
-- `html/exame-form.html` e `html/exames.html`: formulário e lista de exames.
+- Médico realiza login ou cadastro
+- Acessa o dashboard e visualiza os principais indicadores
+- Cadastra pacientes e mantém registros organizados
+- Cria consultas e exames vinculados ao paciente
+- Consulta prontuário para acompanhar evolução clínica
 
-### Organização do JavaScript
+## Observações importantes
 
-- `js/storage.js`: acesso ao `localStorage`, sessão e operações de dados.
-- `js/global.js`: controle de acesso às páginas, utilitários, máscaras, avisos e funções comuns de interface.
-- `js/login.js` e `js/cadastro-medico.js`: autenticação e cadastro do médico.
-- `js/dashboard.js`: indicadores e registros recentes.
-- `js/pacientes.js`, `js/paciente-form.js` e `js/prontuario.js`: busca, cadastro, edição e exibição do prontuário.
-- `js/consulta-form.js` e `js/consultas.js`: cadastro, edição, listagem e remoção de consultas.
-- `js/exame-form.js` e `js/exames.js`: cadastro, edição, listagem e remoção de exames.
+- Os dados são armazenados no `localStorage` do navegador.
+- A aplicação não possui backend, então os dados não são sincronizados entre dispositivos ou navegadores.
+- O sistema é uma solução demonstrativa e não deve ser usada para armazenar dados reais sensíveis sem a devida estrutura de segurança e backend profissional.
+- Arquivos de laudo de exame são registrados apenas pelo nome do arquivo, não sendo armazenados no servidor.
 
-Os registros de consultas e exames são vinculados a um paciente. Ao remover um paciente, seus registros associados também são removidos.
+## Contribuição
+
+Este projeto pode ser utilizado como base para estudos, prototipos e melhorias em sistemas de gestão hospitalar, sendo livre para adaptação conforme a necessidade do desenvolvimento.
+
+## Licença
+
+Este projeto foi desenvolvido para fins acadêmicos e demonstrativos. Consulte a organização ou os responsáveis do repositório antes de utilizar em produção ou em ambientes reais de atendimento clínico.
