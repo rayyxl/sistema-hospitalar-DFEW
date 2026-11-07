@@ -5,17 +5,17 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Lista de pacientes cadastrados no Sistema Hospitalar.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes | Sistema Hospitalar</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/pacientes.css">
-    <title>Pacientes | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="restrito">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="dashboard.html">Dashboard</a> |
-            <a href="pacientes.html">Pacientes</a> |
-            <a href="../index.html">Sair</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="../index.html" data-sair>Sair</a>
         </nav>
     </header>
 
@@ -24,18 +24,22 @@
 
         <section>
             <h3>Buscar paciente</h3>
-            <form>
-                <label for="busca">Nome ou CPF:</label>
-                <input type="text" id="busca" name="busca" placeholder="Digite para buscar">
-                <input type="submit" value="Buscar">
+            <form id="form-busca" action="pacientes.html" method="get">
+                <div class="campo">
+                    <label for="busca">Nome ou CPF:</label>
+                    <input type="text" id="busca" name="busca" placeholder="Digite para buscar" autocomplete="off">
+                </div>
+                <div class="botoes">
+                    <input type="submit" value="Buscar">
+                </div>
             </form>
         </section>
 
         <section>
             <h3>Pacientes cadastrados</h3>
-            <p><a href="paciente-novo.html">+ Cadastrar novo paciente</a></p>
+            <p class="acao-principal"><a href="paciente-novo.html">+ Cadastrar novo paciente</a></p>
 
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -45,41 +49,7 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Maria Souza</td>
-                        <td>123.456.789-00</td>
-                        <td>12/05/1978</td>
-                        <td>(11) 91234-5678</td>
-                        <td>
-                            <a href="prontuario.html">Ver prontuário</a> |
-                            <a href="paciente-editar.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>João Pereira</td>
-                        <td>987.654.321-00</td>
-                        <td>03/09/1985</td>
-                        <td>(11) 98765-4321</td>
-                        <td>
-                            <a href="prontuario.html">Ver prontuário</a> |
-                            <a href="paciente-editar.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ana Lima</td>
-                        <td>456.789.123-00</td>
-                        <td>27/11/1992</td>
-                        <td>(11) 97777-1234</td>
-                        <td>
-                            <a href="prontuario.html">Ver prontuário</a> |
-                            <a href="paciente-editar.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="lista-pacientes"></tbody>
             </table>
         </section>
     </main>
@@ -88,5 +58,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
     </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/pacientes.js"></script>
 </body>
 </html>

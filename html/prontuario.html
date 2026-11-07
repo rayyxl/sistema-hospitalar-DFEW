@@ -5,126 +5,74 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Prontuário médico individual do paciente, com dados cadastrais e histórico clínico.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prontuário | Sistema Hospitalar</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/prontuario.css">
-    <title>Prontuário | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="restrito">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="dashboard.html">Dashboard</a> |
-            <a href="pacientes.html">Pacientes</a> |
-            <a href="../index.html">Sair</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="../index.html" data-sair>Sair</a>
         </nav>
     </header>
 
     <main>
-        <h2>Prontuário: Maria Souza</h2>
+        <h2>Prontuário: <span id="nome-paciente"></span></h2>
 
         <section>
             <h3>Dados cadastrais</h3>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <th>Nome</th>
-                        <td>Maria Souza</td>
-                    </tr>
-                    <tr>
-                        <th>CPF</th>
-                        <td>123.456.789-00</td>
-                    </tr>
-                    <tr>
-                        <th>Nascimento</th>
-                        <td>12/05/1978</td>
-                    </tr>
-                    <tr>
-                        <th>Sexo</th>
-                        <td>Feminino</td>
-                    </tr>
-                    <tr>
-                        <th>Tipo sanguíneo</th>
-                        <td>A+</td>
-                    </tr>
-                    <tr>
-                        <th>Telefone</th>
-                        <td>(11) 91234-5678</td>
-                    </tr>
-                    <tr>
-                        <th>Alergias</th>
-                        <td>Dipirona</td>
-                    </tr>
-                </tbody>
+            <table>
+                <tbody id="dados-paciente"></tbody>
             </table>
-            <p><a href="paciente-editar.html">Editar dados do paciente</a></p>
+            <p><a href="paciente-editar.html" id="link-editar-paciente">Editar dados do paciente</a></p>
         </section>
 
         <section>
             <h3>Histórico clínico</h3>
-            <ol>
-                <li>22/10/2026 - Exame: hemograma completo</li>
-                <li>20/10/2026 - Consulta: retorno por pressão alta</li>
-                <li>05/09/2026 - Exame: eletrocardiograma</li>
-                <li>02/09/2026 - Consulta: avaliação inicial</li>
-            </ol>
+            <ol id="historico"></ol>
         </section>
 
         <section>
             <h3>Consultas</h3>
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Data</th>
                         <th>Motivo</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>20/10/2026</td>
-                        <td>Retorno - pressão alta</td>
-                    </tr>
-                    <tr>
-                        <td>02/09/2026</td>
-                        <td>Avaliação inicial</td>
-                    </tr>
-                </tbody>
+                <tbody id="lista-consultas"></tbody>
             </table>
-            <p>
-                <a href="consultas.html">Gerenciar consultas</a> |
-                <a href="consulta-form.html">Adicionar consulta</a>
+            <p class="links-acao">
+                <a href="consultas.html" id="link-consultas">Gerenciar consultas</a>
+                <a href="consulta-form.html" id="link-nova-consulta">Adicionar consulta</a>
             </p>
         </section>
 
         <section>
             <h3>Exames</h3>
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Data</th>
                         <th>Exame</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>22/10/2026</td>
-                        <td>Hemograma completo</td>
-                    </tr>
-                    <tr>
-                        <td>05/09/2026</td>
-                        <td>Eletrocardiograma</td>
-                    </tr>
-                </tbody>
+                <tbody id="lista-exames"></tbody>
             </table>
-            <p>
-                <a href="exames.html">Gerenciar exames</a> |
-                <a href="exame-form.html">Adicionar exame</a>
+            <p class="links-acao">
+                <a href="exames.html" id="link-exames">Gerenciar exames</a>
+                <a href="exame-form.html" id="link-novo-exame">Adicionar exame</a>
             </p>
         </section>
 
         <aside>
             <details>
                 <summary>Observações gerais</summary>
-                <p>Paciente hipertensa em acompanhamento. Manter controle da pressão arterial e reavaliar em 60 dias.</p>
+                <p id="observacoes-gerais"></p>
             </details>
         </aside>
     </main>
@@ -133,5 +81,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
     </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/prontuario.js"></script>
 </body>
 </html>

@@ -5,63 +5,73 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Formulário para adicionar ou editar um exame no prontuário do paciente.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de exame | Sistema Hospitalar</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/exame-form.css">
-    <title>Formulário de exame | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="restrito">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="dashboard.html">Dashboard</a> |
-            <a href="pacientes.html">Pacientes</a> |
-            <a href="../index.html">Sair</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="../index.html" data-sair>Sair</a>
         </nav>
     </header>
 
     <main>
-        <h2>Adicionar / editar exame</h2>
-        <p><a href="exames.html">&larr; Voltar aos exames</a></p>
+        <h2 id="titulo-form">Adicionar exame</h2>
+        <p class="voltar"><a href="exames.html" id="link-voltar">&larr; Voltar aos exames</a></p>
 
-        <form>
-            <fieldset>
+        <form id="form-exame">
+            <fieldset id="campos">
                 <legend>Dados do exame</legend>
 
-                <label for="paciente">Paciente:</label><br>
-                <select id="paciente" name="paciente" required>
-                    <option value="maria" selected>Maria Souza</option>
-                    <option value="joao">João Pereira</option>
-                    <option value="ana">Ana Lima</option>
-                </select><br><br>
+                <div class="campo">
+                    <label for="paciente">Paciente:</label>
+                    <select id="paciente" name="paciente" required></select>
+                </div>
 
-                <label for="tipo">Tipo de exame:</label><br>
-                <input list="tipos-exame" id="tipo" name="tipo" placeholder="Digite ou escolha um exame" required>
-                <datalist id="tipos-exame">
-                    <option value="Hemograma completo">
-                    <option value="Eletrocardiograma">
-                    <option value="Glicemia em jejum">
-                    <option value="Raio-X">
-                    <option value="Ressonância magnética">
-                    <option value="Ultrassonografia">
-                </datalist><br><br>
+                <div class="campo">
+                    <label for="tipo">Tipo de exame:</label>
+                    <input list="tipos-exame" id="tipo" name="tipo" placeholder="Digite ou escolha um exame" required>
+                    <datalist id="tipos-exame">
+                        <option value="Hemograma completo">
+                        <option value="Eletrocardiograma">
+                        <option value="Glicemia em jejum">
+                        <option value="Raio-X">
+                        <option value="Ressonância magnética">
+                        <option value="Ultrassonografia">
+                    </datalist>
+                </div>
 
-                <label for="data">Data de realização:</label><br>
-                <input type="date" id="data" name="data" required><br><br>
+                <div class="campo">
+                    <label for="data">Data de realização:</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
 
-                <label for="resultado">Resultado:</label><br>
-                <textarea id="resultado" name="resultado" rows="4" cols="40" placeholder="Descreva o resultado do exame" required></textarea><br><br>
+                <div class="campo">
+                    <label for="resultado">Resultado:</label>
+                    <textarea id="resultado" name="resultado" rows="4" cols="40" placeholder="Descreva o resultado do exame" required></textarea>
+                </div>
 
-                <label for="arquivo">Arquivo do laudo:</label><br>
-                <input type="file" id="arquivo" name="arquivo"><br><br>
+                <div class="campo">
+                    <label for="arquivo">Arquivo do laudo:</label>
+                    <input type="file" id="arquivo" name="arquivo">
+                    <small class="dica" id="arquivo-atual">O navegador não comporta arquivos no localStorage: apenas o nome do arquivo escolhido é registrado.</small>
+                </div>
 
-                <label for="observacoes">Observações:</label><br>
-                <textarea id="observacoes" name="observacoes" rows="4" cols="40" placeholder="Informações adicionais"></textarea>
+                <div class="campo">
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes" rows="4" cols="40" placeholder="Informações adicionais"></textarea>
+                </div>
             </fieldset>
 
-            <br>
-            <input type="submit" value="Salvar exame">
-            <input type="reset" value="Limpar">
-            <a href="exames.html">Cancelar</a>
+            <div class="botoes">
+                <input type="submit" value="Salvar exame" id="botao-salvar">
+                <input type="reset" value="Limpar">
+                <a href="exames.html" id="link-cancelar">Cancelar</a>
+            </div>
         </form>
     </main>
 
@@ -69,5 +79,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
     </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/exame-form.js"></script>
 </body>
 </html>

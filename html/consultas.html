@@ -5,29 +5,29 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Lista de consultas registradas no prontuário do paciente.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas | Sistema Hospitalar</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/consultas.css">
-    <title>Consultas | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="restrito">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="dashboard.html">Dashboard</a> |
-            <a href="pacientes.html">Pacientes</a> |
-            <a href="../index.html">Sair</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="../index.html" data-sair>Sair</a>
         </nav>
     </header>
 
     <main>
-        <h2>Consultas: Maria Souza</h2>
-        <p><a href="prontuario.html">&larr; Voltar ao prontuário</a></p>
+        <h2>Consultas: <span id="nome-paciente"></span></h2>
+        <p class="voltar"><a href="prontuario.html" id="link-voltar">&larr; Voltar ao prontuário</a></p>
 
         <section>
             <h3>Consultas registradas</h3>
-            <p><a href="consulta-form.html">+ Adicionar consulta</a></p>
+            <p class="acao-principal"><a href="consulta-form.html" id="link-nova-consulta">+ Adicionar consulta</a></p>
 
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Data</th>
@@ -37,28 +37,7 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>20/10/2026</td>
-                        <td>09:30</td>
-                        <td>Retorno - pressão alta</td>
-                        <td>Hipertensão controlada</td>
-                        <td>
-                            <a href="consulta-form.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>02/09/2026</td>
-                        <td>14:00</td>
-                        <td>Avaliação inicial</td>
-                        <td>Hipertensão arterial</td>
-                        <td>
-                            <a href="consulta-form.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="lista-consultas"></tbody>
             </table>
         </section>
     </main>
@@ -67,5 +46,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
     </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/consultas.js"></script>
 </body>
 </html>

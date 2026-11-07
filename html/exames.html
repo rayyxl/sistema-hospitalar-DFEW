@@ -5,29 +5,29 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Lista de exames registrados no prontuário do paciente.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exames | Sistema Hospitalar</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/exames.css">
-    <title>Exames | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="restrito">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="dashboard.html">Dashboard</a> |
-            <a href="pacientes.html">Pacientes</a> |
-            <a href="../index.html">Sair</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="../index.html" data-sair>Sair</a>
         </nav>
     </header>
 
     <main>
-        <h2>Exames: Maria Souza</h2>
-        <p><a href="prontuario.html">&larr; Voltar ao prontuário</a></p>
+        <h2>Exames: <span id="nome-paciente"></span></h2>
+        <p class="voltar"><a href="prontuario.html" id="link-voltar">&larr; Voltar ao prontuário</a></p>
 
         <section>
             <h3>Exames registrados</h3>
-            <p><a href="exame-form.html">+ Adicionar exame</a></p>
+            <p class="acao-principal"><a href="exame-form.html" id="link-novo-exame">+ Adicionar exame</a></p>
 
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Data</th>
@@ -36,26 +36,7 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>22/10/2026</td>
-                        <td>Hemograma completo</td>
-                        <td>Dentro dos valores de referência</td>
-                        <td>
-                            <a href="exame-form.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>05/09/2026</td>
-                        <td>Eletrocardiograma</td>
-                        <td>Ritmo sinusal normal</td>
-                        <td>
-                            <a href="exame-form.html">Editar</a> |
-                            <button type="button">Remover</button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="lista-exames"></tbody>
             </table>
         </section>
     </main>
@@ -64,5 +45,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Dados demonstrativos</p>
     </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/exames.js"></script>
 </body>
 </html>
