@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-labelledby="titulo">
+    <title id="titulo">Sistema Hospitalar</title>
+
+    <!-- Fundo -->
+    <rect width="128" height="128" rx="28" fill="#0f4c5c"/>
+
+    <!-- Folha do prontuário -->
+    <rect x="32" y="24" width="64" height="80" rx="10" fill="#ffffff"/>
+
+    <!-- Presilha da prancheta -->
+    <rect x="48" y="16" width="32" height="16" rx="6" fill="#2a9d8f" stroke="#0f4c5c" stroke-width="4"/>
+
+    <!-- Cruz médica -->
+    <rect x="57" y="42" width="14" height="38" rx="3" fill="#2a9d8f"/>
+    <rect x="45" y="54" width="38" height="14" rx="3" fill="#2a9d8f"/>
+
+    <!-- Linhas de texto -->
+    <rect x="44" y="89" width="40" height="5" rx="2.5" fill="#0f4c5c" opacity="0.25"/>
+</svg>
