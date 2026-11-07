@@ -5,17 +5,16 @@
     <meta name="author" content="Rai Soares">
     <meta name="description" content="Tela de acesso ao Sistema Hospitalar, destinada ao médico.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Sistema Hospitalar</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
-    <title>Login | Sistema Hospitalar</title>
 </head>
-<body>
+<body data-acesso="publico">
     <header>
         <h1>Sistema Hospitalar</h1>
         <nav>
-            <a href="index.html">Login</a> |
-            <a href="html/dashboard.html">Dashboard</a> |
-            <a href="html/pacientes.html">Pacientes</a>
+            <a href="index.html">Login</a>
+            <a href="html/cadastro-medico.html">Cadastro</a>
         </nav>
     </header>
 
@@ -24,23 +23,29 @@
             <h2>Acesso do médico</h2>
             <p>Informe suas credenciais para acessar o sistema.</p>
 
-            <form>
+            <form id="form-login" method="post">
                 <fieldset>
                     <legend>Login</legend>
 
-                    <label for="email">E-mail:</label><br>
-                    <input type="email" id="email" name="email" placeholder="medico@exemplo.com" required><br><br>
+                    <div class="campo">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" placeholder="medico@exemplo.com" autocomplete="username" required>
+                    </div>
 
-                    <label for="senha">Senha:</label><br>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required><br><br>
+                    <div class="campo">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+                    </div>
 
-                    <input type="submit" value="Entrar">
+                    <div class="botoes">
+                        <input type="submit" value="Entrar">
+                    </div>
                 </fieldset>
             </form>
         </section>
 
         <aside>
-            <p>Dados demonstrativos: qualquer e-mail e senha permitem a entrada nesta etapa.</p>
+            <p>Ainda não tem acesso? <a href="html/cadastro-medico.html">Cadastre-se como médico</a>.</p>
         </aside>
     </main>
 
@@ -48,5 +53,9 @@
         <hr>
         <p>&copy; 2026 Sistema Hospitalar &middot; Rai Soares</p>
     </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>
