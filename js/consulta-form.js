@@ -1,8 +1,4 @@
-/* ==========================================================
-   consulta-form.js - Adicionar e editar consulta (html/consulta-form.html)
-     Nova consulta : consulta-form.html            (ou ?paciente=ID para já escolher o paciente)
-     Editar        : consulta-form.html?id=ID_DA_CONSULTA
-   ========================================================== */
+// Prepara o formulário para criar ou editar uma consulta.
 SH.pagina(function () {
     'use strict';
 
@@ -31,7 +27,7 @@ SH.pagina(function () {
         return;
     }
 
-    // Os links "Voltar" e "Cancelar" levam às consultas do paciente escolhido
+    // Atualiza os links de retorno de acordo com o paciente escolhido.
     function atualizarLinks() {
         const destino = campos.paciente.value
             ? 'consultas.html?paciente=' + encodeURIComponent(campos.paciente.value)
@@ -44,52 +40,54 @@ SH.pagina(function () {
 
     if (consulta) {
         document.getElementById('titulo-form').textContent = 'Editar consulta';
-        campos.paciente.disabled = true; // a consulta não muda de paciente
+        campos.paciente.disabled = true;
         campos.data.value = consulta.data;
         campos.horario.value = consulta.horario || '';
         campos.motivo.value = consulta.motivo;
         campos.diagnostico.value = consulta.diagnostico || '';
         campos.observacoes.value = consulta.observacoes || '';
-        form.querySelector('input[type="reset"]').remove(); // "Limpar" não faz sentido ao editar
+        form.querySelector('input[type="reset"]').remove();
     } else {
-        // Sugere a data de hoje (e o botão "Limpar" volta para ela)
         campos.data.value = campos.data.defaultValue = SH.util.dataDeHoje();
     }
 
-    form.addEventListener('submit', function (evento) {
-        evento.preventDefault();
+    form.addEventListener('submit',
+        // Valida e salva os dados da consulta.
+        function (evento) {
+            evento.preventDefault();
 
-        const dados = {
-            pacienteId: consulta ? consulta.pacienteId : campos.paciente.value,
-            data: campos.data.value,
-            horario: campos.horario.value,
-            motivo: campos.motivo.value.trim().replace(/\s+/g, ' '),
-            diagnostico: campos.diagnostico.value.trim(),
-            observacoes: campos.observacoes.value.trim()
-        };
+            const dados = {
+                pacienteId: consulta ? consulta.pacienteId : campos.paciente.value,
+                data: campos.data.value,
+                horario: campos.horario.value,
+                motivo: campos.motivo.value.trim().replace(/\s+/g, ' '),
+                diagnostico: campos.diagnostico.value.trim(),
+                observacoes: campos.observacoes.value.trim()
+            };
 
-        const erros = [];
-        if (!dados.pacienteId) {
-            erros.push('Escolha o paciente.');
-        }
-        if (dados.motivo.length < 3) {
-            erros.push('Descreva o motivo da consulta.');
-        }
-
-        if (erros.length > 0) {
-            SH.ui.avisar(erros, 'erro');
-            return;
-        }
-
-        try {
-            if (consulta) {
-                dados.id = consulta.id;
+            const erros = [];
+            if (!dados.pacienteId) {
+                erros.push('Escolha o paciente.');
             }
-            SH.consultas.salvar(dados);
-            SH.ui.avisarDepois(consulta ? 'Consulta atualizada.' : 'Consulta registrada com sucesso.', 'sucesso');
-            window.location.href = 'consultas.html?paciente=' + encodeURIComponent(dados.pacienteId);
-        } catch (erro) {
-            SH.ui.avisar(erro.message, 'erro');
+            if (dados.motivo.length < 3) {
+                erros.push('Descreva o motivo da consulta.');
+            }
+
+            if (erros.length > 0) {
+                SH.ui.avisar(erros, 'erro');
+                return;
+            }
+
+            try {
+                if (consulta) {
+                    dados.id = consulta.id;
+                }
+                SH.consultas.salvar(dados);
+                SH.ui.avisarDepois(consulta ? 'Consulta atualizada.' : 'Consulta registrada com sucesso.', 'sucesso');
+                window.location.href = 'consultas.html?paciente=' + encodeURIComponent(dados.pacienteId);
+            } catch (erro) {
+                SH.ui.avisar(erro.message, 'erro');
+            }
         }
-    });
+    );
 });

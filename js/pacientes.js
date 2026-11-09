@@ -1,7 +1,4 @@
-/* ==========================================================
-   pacientes.js - Lista de pacientes (html/pacientes.html)
-   Lista, busca por nome ou CPF e remoção (com confirmação).
-   ========================================================== */
+// Carrega e configura a lista de pacientes.
 SH.pagina(function () {
     'use strict';
 
@@ -10,6 +7,7 @@ SH.pagina(function () {
     const formBusca = document.getElementById('form-busca');
     const campoBusca = document.getElementById('busca');
 
+    // Cria os controles para abrir, editar ou remover um paciente.
     function celulaDeAcoes(paciente) {
         return el('div', { classe: 'acoes' }, [
             el('a', { href: 'prontuario.html?paciente=' + encodeURIComponent(paciente.id), texto: 'Ver prontuário' }),
@@ -17,24 +15,33 @@ SH.pagina(function () {
             el('button', {
                 type: 'button',
                 texto: 'Remover',
-                onclick: function () { remover(paciente); }
+                onclick:
+                    // Remove o paciente associado ao botão.
+                    function () { remover(paciente); }
             })
         ]);
     }
 
+    // Filtra, ordena e desenha os pacientes na tabela.
     function desenhar() {
         const termo = SH.util.normalizar(campoBusca.value.trim());
         const termoCpf = SH.util.digitos(campoBusca.value);
 
-        const todos = SH.pacientes.listar().sort(function (a, b) {
-            return a.nome.localeCompare(b.nome, 'pt-BR');
-        });
+        const todos = SH.pacientes.listar().sort(
+            // Ordena os pacientes pelo nome.
+            function (a, b) {
+                return a.nome.localeCompare(b.nome, 'pt-BR');
+            }
+        );
 
-        const lista = termo === '' ? todos : todos.filter(function (paciente) {
-            const nomeConfere = SH.util.normalizar(paciente.nome).includes(termo);
-            const cpfConfere = termoCpf !== '' && SH.util.digitos(paciente.cpf).includes(termoCpf);
-            return nomeConfere || cpfConfere;
-        });
+        const lista = termo === '' ? todos : todos.filter(
+            // Mantém pacientes cujo nome ou CPF corresponde à busca.
+            function (paciente) {
+                const nomeConfere = SH.util.normalizar(paciente.nome).includes(termo);
+                const cpfConfere = termoCpf !== '' && SH.util.digitos(paciente.cpf).includes(termoCpf);
+                return nomeConfere || cpfConfere;
+            }
+        );
 
         if (lista.length === 0) {
             SH.ui.linhaVazia(corpo, 5, todos.length === 0
@@ -44,17 +51,21 @@ SH.pagina(function () {
         }
 
         SH.ui.limpar(corpo);
-        lista.forEach(function (paciente) {
-            corpo.appendChild(SH.ui.linha([
-                paciente.nome,
-                paciente.cpf,
-                SH.util.formatarData(paciente.nascimento),
-                paciente.telefone || '-',
-                celulaDeAcoes(paciente)
-            ]));
-        });
+        lista.forEach(
+            // Adiciona uma linha para cada paciente encontrado.
+            function (paciente) {
+                corpo.appendChild(SH.ui.linha([
+                    paciente.nome,
+                    paciente.cpf,
+                    SH.util.formatarData(paciente.nascimento),
+                    paciente.telefone || '-',
+                    celulaDeAcoes(paciente)
+                ]));
+            }
+        );
     }
 
+    // Confirma e remove um paciente e seus registros relacionados.
     function remover(paciente) {
         const totalConsultas = SH.consultas.listarPorPaciente(paciente.id).length;
         const totalExames = SH.exames.listarPorPaciente(paciente.id).length;
@@ -77,10 +88,13 @@ SH.pagina(function () {
         }
     }
 
-    formBusca.addEventListener('submit', function (evento) {
-        evento.preventDefault();
-        desenhar();
-    });
+    formBusca.addEventListener('submit',
+        // Atualiza a lista usando o termo de busca atual.
+        function (evento) {
+            evento.preventDefault();
+            desenhar();
+        }
+    );
     campoBusca.addEventListener('input', desenhar);
 
     desenhar();

@@ -1,7 +1,4 @@
-/* ==========================================================
-   exames.js - Exames do paciente (html/exames.html?paciente=ID)
-   Lista, edição (link) e remoção (com confirmação).
-   ========================================================== */
+// Carrega e configura a lista de exames do paciente.
 SH.pagina(function () {
     'use strict';
 
@@ -21,6 +18,7 @@ SH.pagina(function () {
     document.getElementById('link-voltar').href = 'prontuario.html' + consulta;
     document.getElementById('link-novo-exame').href = 'exame-form.html' + consulta;
 
+    // Cria o conteúdo da célula com o resultado e o nome do laudo.
     function celulaDeResultado(registro) {
         const partes = [registro.resultado];
         if (registro.arquivoNome) {
@@ -30,17 +28,21 @@ SH.pagina(function () {
         return el('span', {}, partes);
     }
 
+    // Cria os controles para editar ou remover um exame.
     function celulaDeAcoes(registro) {
         return el('div', { classe: 'acoes' }, [
             el('a', { href: 'exame-form.html?id=' + encodeURIComponent(registro.id), texto: 'Editar' }),
             el('button', {
                 type: 'button',
                 texto: 'Remover',
-                onclick: function () { remover(registro); }
+                onclick:
+                    // Remove o exame associado ao botão.
+                    function () { remover(registro); }
             })
         ]);
     }
 
+    // Desenha na tabela os exames ordenados por data.
     function desenhar() {
         const lista = SH.util.ordenarRecentes(SH.exames.listarPorPaciente(paciente.id));
 
@@ -50,16 +52,20 @@ SH.pagina(function () {
         }
 
         SH.ui.limpar(corpo);
-        lista.forEach(function (registro) {
-            corpo.appendChild(SH.ui.linha([
-                SH.util.formatarData(registro.data),
-                registro.tipo,
-                celulaDeResultado(registro),
-                celulaDeAcoes(registro)
-            ]));
-        });
+        lista.forEach(
+            // Adiciona uma linha para cada exame.
+            function (registro) {
+                corpo.appendChild(SH.ui.linha([
+                    SH.util.formatarData(registro.data),
+                    registro.tipo,
+                    celulaDeResultado(registro),
+                    celulaDeAcoes(registro)
+                ]));
+            }
+        );
     }
 
+    // Confirma e remove um exame da lista.
     function remover(registro) {
         const confirmado = window.confirm(
             'Remover o exame "' + registro.tipo + '" de ' + SH.util.formatarData(registro.data) + '?\n\n' +

@@ -1,56 +1,64 @@
-/* ==========================================================
-   cadastro-medico.js - Cadastro do médico (html/cadastro-medico.html)
-   Valida os dados, guarda a senha como hash e volta ao login.
-   ========================================================== */
+// Configura o formulário de cadastro e seus comportamentos.
 SH.pagina(function () {
     'use strict';
 
     const form = document.getElementById('form-cadastro');
     const campos = form.elements;
+    const ufsValidas = new Set([
+        'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+        'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+        'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+    ]);
+    SH.ui.ligarMascaras(form);
 
-    form.addEventListener('submit', async function (evento) {
-        evento.preventDefault();
+    form.addEventListener('submit',
+        // Valida os dados e cadastra o médico.
+        async function (evento) {
+            evento.preventDefault();
 
-        const dados = {
-            nome: campos.nome.value.trim().replace(/\s+/g, ' '),
-            crm: campos.crm.value.trim().toUpperCase(),
-            especialidade: campos.especialidade.value.trim(),
-            email: campos.email.value.trim().toLowerCase()
-        };
-        const senha = campos.senha.value;
-        const confirmacao = campos.confirmacao.value;
+            const dados = {
+                nome: campos.nome.value.trim().replace(/\s+/g, ' '),
+                crm: campos.crm.value.trim().toUpperCase(),
+                especialidade: campos.especialidade.value.trim(),
+                email: campos.email.value.trim().toLowerCase()
+            };
+            const senha = campos.senha.value;
+            const confirmacao = campos.confirmacao.value;
 
-        const erros = [];
-        if (dados.nome.length < 3) {
-            erros.push('Informe o seu nome completo.');
-        }
-        if (!/^\d{4,7}\/[A-Z]{2}$/.test(dados.crm)) {
-            erros.push('Informe o CRM no formato 123456/SP (número, barra e sigla do estado).');
-        }
-        if (dados.especialidade.length < 3) {
-            erros.push('Informe a especialidade.');
-        }
-        if (senha.length < 6) {
-            erros.push('A senha precisa ter pelo menos 6 caracteres.');
-        }
-        if (senha !== confirmacao) {
-            erros.push('A confirmação da senha não confere.');
-        }
-        if (SH.medicos.buscarPorEmail(dados.email)) {
-            erros.push('Já existe um médico cadastrado com este e-mail.');
-        }
+            const erros = [];
+            if (dados.nome.length < 3) {
+                erros.push('Informe o seu nome completo.');
+            }
+            if (!/^\d{4,7}\/[A-Z]{2}$/.test(dados.crm)) {
+                erros.push('Informe o CRM no formato 123456/SP (número, barra e sigla do estado).');
+            } else if (!ufsValidas.has(dados.crm.slice(-2))) {
+                erros.push('Informe uma UF brasileira válida no CRM.');
+            }
+            if (dados.especialidade.length < 3) {
+                erros.push('Informe a especialidade.');
+            }
+            if (senha.length < 6) {
+                erros.push('A senha precisa ter pelo menos 6 caracteres.');
+            }
+            if (senha !== confirmacao) {
+                erros.push('A confirmação da senha não confere.');
+            }
+            if (SH.medicos.buscarPorEmail(dados.email)) {
+                erros.push('Já existe um médico cadastrado com este e-mail.');
+            }
 
-        if (erros.length > 0) {
-            SH.ui.avisar(erros, 'erro');
-            return;
-        }
+            if (erros.length > 0) {
+                SH.ui.avisar(erros, 'erro');
+                return;
+            }
 
-        try {
-            dados.senhaHash = await SH.auth.gerarHash(senha);
-            SH.medicos.criar(dados);
-            window.location.href = SH.raiz + 'index.html?cadastrado=1';
-        } catch (erro) {
-            SH.ui.avisar(erro.message, 'erro');
+            try {
+                dados.senhaHash = await SH.auth.gerarHash(senha);
+                SH.medicos.criar(dados);
+                window.location.href = SH.raiz + 'index.html?cadastrado=1';
+            } catch (erro) {
+                SH.ui.avisar(erro.message, 'erro');
+            }
         }
-    });
+    );
 });

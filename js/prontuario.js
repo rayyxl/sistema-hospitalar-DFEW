@@ -1,7 +1,4 @@
-/* ==========================================================
-   prontuario.js - Prontuário do paciente (html/prontuario.html?paciente=ID)
-   Reúne os dados cadastrais, o histórico, as consultas e os exames.
-   ========================================================== */
+// Carrega os dados cadastrais e o histórico clínico do paciente.
 SH.pagina(function () {
     'use strict';
 
@@ -18,8 +15,6 @@ SH.pagina(function () {
     const exames = SH.util.ordenarRecentes(SH.exames.listarPorPaciente(paciente.id));
     const consulta = '?paciente=' + encodeURIComponent(paciente.id);
 
-    /* ---------- Cabeçalho e links ---------- */
-
     document.title = 'Prontuário de ' + paciente.nome + ' | Sistema Hospitalar';
     document.getElementById('nome-paciente').textContent = paciente.nome;
     document.getElementById('link-editar-paciente').href = 'paciente-editar.html?id=' + encodeURIComponent(paciente.id);
@@ -27,8 +22,6 @@ SH.pagina(function () {
     document.getElementById('link-nova-consulta').href = 'consulta-form.html' + consulta;
     document.getElementById('link-exames').href = 'exames.html' + consulta;
     document.getElementById('link-novo-exame').href = 'exame-form.html' + consulta;
-
-    /* ---------- Dados cadastrais ---------- */
 
     const rotulosSexo = { feminino: 'Feminino', masculino: 'Masculino', outro: 'Outro' };
     const idade = SH.util.calcularIdade(paciente.nascimento);
@@ -48,41 +41,52 @@ SH.pagina(function () {
 
     const corpoDados = document.getElementById('dados-paciente');
     SH.ui.limpar(corpoDados);
-    dados.forEach(function (par) {
-        corpoDados.appendChild(el('tr', {}, [
-            el('th', { texto: par[0] }),
-            el('td', { texto: par[1] })
-        ]));
-    });
+    dados.forEach(
+        // Adiciona uma linha para cada dado cadastral.
+        function (par) {
+            corpoDados.appendChild(el('tr', {}, [
+                el('th', { texto: par[0] }),
+                el('td', { texto: par[1] })
+            ]));
+        }
+    );
 
-    /* ---------- Histórico clínico (consultas e exames juntos) ---------- */
-
-    const eventos = consultas.map(function (c) {
-        return { data: c.data, horario: c.horario, texto: 'Consulta: ' + c.motivo };
-    }).concat(exames.map(function (e) {
-        return { data: e.data, horario: '', texto: 'Exame: ' + e.tipo };
-    }));
+    const eventos = consultas.map(
+        // Converte uma consulta em item do histórico clínico.
+        function (c) {
+            return { data: c.data, horario: c.horario, texto: 'Consulta: ' + c.motivo };
+        }
+    ).concat(exames.map(
+        // Converte um exame em item do histórico clínico.
+        function (e) {
+            return { data: e.data, horario: '', texto: 'Exame: ' + e.tipo };
+        }
+    ));
 
     const historico = document.getElementById('historico');
     SH.ui.limpar(historico);
     if (eventos.length === 0) {
         historico.appendChild(el('li', { classe: 'vazio', texto: 'Nenhum registro clínico ainda.' }));
     } else {
-        SH.util.ordenarRecentes(eventos).forEach(function (evento) {
-            historico.appendChild(el('li', { texto: SH.util.formatarData(evento.data) + ' - ' + evento.texto }));
-        });
+        SH.util.ordenarRecentes(eventos).forEach(
+            // Adiciona cada evento clínico à lista do histórico.
+            function (evento) {
+                historico.appendChild(el('li', { texto: SH.util.formatarData(evento.data) + ' - ' + evento.texto }));
+            }
+        );
     }
-
-    /* ---------- Consultas e exames ---------- */
 
     const corpoConsultas = document.getElementById('lista-consultas');
     if (consultas.length === 0) {
         SH.ui.linhaVazia(corpoConsultas, 2, 'Nenhuma consulta registrada.');
     } else {
         SH.ui.limpar(corpoConsultas);
-        consultas.forEach(function (c) {
-            corpoConsultas.appendChild(SH.ui.linha([SH.util.formatarData(c.data), c.motivo]));
-        });
+        consultas.forEach(
+            // Adiciona uma linha para cada consulta.
+            function (c) {
+                corpoConsultas.appendChild(SH.ui.linha([SH.util.formatarData(c.data), c.motivo]));
+            }
+        );
     }
 
     const corpoExames = document.getElementById('lista-exames');
@@ -90,12 +94,13 @@ SH.pagina(function () {
         SH.ui.linhaVazia(corpoExames, 2, 'Nenhum exame registrado.');
     } else {
         SH.ui.limpar(corpoExames);
-        exames.forEach(function (e) {
-            corpoExames.appendChild(SH.ui.linha([SH.util.formatarData(e.data), e.tipo]));
-        });
+        exames.forEach(
+            // Adiciona uma linha para cada exame.
+            function (e) {
+                corpoExames.appendChild(SH.ui.linha([SH.util.formatarData(e.data), e.tipo]));
+            }
+        );
     }
-
-    /* ---------- Observações gerais ---------- */
 
     document.getElementById('observacoes-gerais').textContent =
         paciente.observacoes || 'Nenhuma observação registrada.';
