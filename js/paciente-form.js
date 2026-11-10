@@ -57,6 +57,9 @@ SH.pagina(function () {
             if (dados.nome.length < 3) {
                 erros.push('Informe o nome completo do paciente.');
             }
+            if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(dados.cpf)) {
+                erros.push('Informe o CPF completo com 11 números.');
+            }
             if (dados.nascimento > SH.util.dataDeHoje()) {
                 erros.push('A data de nascimento não pode estar no futuro.');
             }
